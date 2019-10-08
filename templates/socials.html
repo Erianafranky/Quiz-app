@@ -1,0 +1,31 @@
+{%extends 'base.html' %}
+{% block content %}
+{% if error %}<p class="error"><strong> {{ error }}{% endif %}
+                <form id='answer' method='post'  >
+                        <div class="container">  
+                                <div id="home" class="flex-center flex-column">
+                      
+       
+   
+        <h1>Question {{num}} of {{ntot}}</h1>
+        
+        {% for i in q %}
+        
+        <h3>{{i}}</h3>
+        
+        {% for j in o[i] %}
+        
+        <div class="choice-container">
+        <input type='radio' value='{{j}}' name='{{i}}' />{{j}}
+</div>
+        {% endfor %}
+
+        <input type="submit" value="next" formaction="/social" />
+        {% endfor %}
+        <!--<input type="submit" value="next" />-->
+
+        </div>
+        </div>
+</form>
+        
+{% endblock %}

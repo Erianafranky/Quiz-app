@@ -1,0 +1,20 @@
+{%extends 'base.html' %}
+{% block content %}
+{% if error %}<p class="error"><strong> {{ error }}{% endif %}
+    <div class="container">  
+  <div id="home" class="flex-center flex-column">
+      <h1>Thank you for participating!</h1>
+      <p>
+          Correct answers:
+          <label for="correcta">{{question["correct"]}}</label>
+      </p>
+      <p>
+          Wrong answers:
+          <label for="wronga">{{question["wrong"]}}</label>
+      </p>
+      <p>
+          
+      </div>
+      </div>
+
+{% endblock %}
