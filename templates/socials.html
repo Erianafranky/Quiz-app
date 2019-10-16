@@ -1,31 +1,37 @@
 {%extends 'base.html' %}
 {% block content %}
 {% if error %}<p class="error"><strong> {{ error }}{% endif %}
-                <form id='answer' method='post'  >
-                        <div class="container">  
-                                <div id="home" class="flex-center flex-column">
-                      
-       
-   
+    <div class="container">  
+  <div id="home" class="flex-center flex-column">
         <h1>Question {{num}} of {{ntot}}</h1>
-        
-        {% for i in q %}
-        
-        <h3>{{i}}</h3>
-        
-        {% for j in o[i] %}
-        
-        <div class="choice-container">
-        <input type='radio' value='{{j}}' name='{{i}}' />{{j}}
-</div>
-        {% endfor %}
+                
+            
+                  
+                  <h3>{{question}}</h3>
+                  
+                  
+                  <h4>
+                  <form id='answer' method='post'  > <!-- action must match your next URL -->
+                    <p> 
+                        
+                     <input type='radio' name='answer_social' id="r1" value={{ans1}} /><label for="r1" ></label> </br> 
 
-        <input type="submit" value="next" formaction="/social" />
-        {% endfor %}
-        <!--<input type="submit" value="next" />-->
+                     <input type='radio' name='answer_social' id="r2" value={{ans2}} /> <label for="r2"></label> </br> 
 
-        </div>
-        </div>
-</form>
-        
-{% endblock %}
+                     <input type='radio' name='answer_social' id="r3" value={{ans3}} /><label for="r3" ></label> </br> 
+
+                     <input type='radio' name='answer_social' id="r4" value={{ans4}} /> <label for="r4" ></label>  </br> 
+                      
+                      </p>
+                                      
+                     <p>  
+                     <input type='submit' value='Next' id="r7" formaction="/social" /> <!--the 'value' is the word that will appear on your button.-->
+                    </p>
+                  </form>
+                  </h4>
+                  
+                  </div>
+                  </div>
+          
+       
+    {% endblock %}
