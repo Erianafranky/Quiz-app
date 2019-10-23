@@ -24,7 +24,7 @@ def shuffle(q):
 
 @app.route('/phishing', methods=['GET', 'POST'])
 def phishing():
-    with open('TemplateQuiz .csv', 'rU') as csvfile:
+    with open('TemplateQuiz.csv', 'rU') as csvfile:
         reader = csv.reader(csvfile)
         quiz = list(reader)
    

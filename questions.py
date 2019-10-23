@@ -1,6 +1,6 @@
 import random, copy
 from random import shuffle
-
+import csv
 """
 Questions and corresponding options
 The first option is the correct answer
@@ -24,4 +24,11 @@ questions={}
 questions["correct"]=[]
 questions["wrong"]=[]
 questions["curretq"]=1
-social_engs = copy.deepcopy(social_eng)
+current_question_index = 1
+
+def phishings():
+    quiz=None
+    with open('TemplateQuiz.csv', newline='') as csvfile:
+        reader = csv.reader(csvfile)
+        quiz = list(reader)
+        questionn = quiz[0]
