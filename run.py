@@ -11,48 +11,51 @@ from questions import*
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
-def shuffle(q):
-    selected_keys = []
-    i = 0
-    while i < len(q):
-        current_selection = random.choice(list(q))
-        if current_selection not in selected_keys:
-            selected_keys.append(current_selection)
-            i = i + 1
-        return selected_keys
 
 
 @app.route('/phishing', methods=['GET', 'POST'])
+    
 def phishing():
-    with open('TemplateQuiz.csv', 'rU') as csvfile:
+    with open('TemplateQuiz.csv', 'r') as csvfile:
         reader = csv.reader(csvfile)
         quiz = list(reader)
-   
-        question =quiz[current_question_index][0]
+        random.shuffle(quiz)
+    if request.method == 'POST':
+        questions_file = 'TemplateQuiz .csv'
+        question = quiz[current_question_index][0]
         options = quiz[current_question_index][1:-1]
         correct_answer = quiz[current_question_index][-1]
-        current_question = phishings()
-        current_answer = request.form.get('i')
-        for i in question:
-            answered = request.form.get(i)
-            if i[0] == answered:
-                question["correct"].append(str(int(session[current_question_index])))
-            #else:
-             #   questions["wrong"].append(str(int(session[current_question_index])))
-            
-        #session[current_question_index] = session[current_question_index]+1
+        entered_answer =request.form.get('answer_phishing')
+        if not entered_answer:
+            flash("Please choose an answer", "error")
+        else:
+            curr_answer = request.form['answer_phishing']
+            correct_answer = quiz[current_question_index][-1]
+        if curr_answer == correct_answer[:len(curr_answer)]:
+            quiz["correct"].append(int([current_question_index]))
+        else:
+            quiz["wrong"].append(int([current_question_index]))
+        
+        session[current_question_index] = str(int(session[current_question_index])+1)
+        quiz["curretq"] = max(int(session[current_question_index]), quiz["curretq"])
+        
+    if current_question_index not in session:
+        session[current_question_index] = "1"
 
-   
-    
-    if "current_question" not in session:
-        session["current_question"] = "1"
-
-    currentN=int(session["current_question"])
-    currentQ = random.choice(quiz)
-    question_shuffled= shuffle(quiz)
+    elif session[current_question_index] not in qm:
+        quiz["wrong"] = list(set(quiz["wrong"]))
+        quiz["correct"] = list(set(quiz["correct"]))
+        return render_template('end-quiz.html', question=quiz)
+    currentN = int(session[current_question_index])
+    currentQ = quiz[current_question_index][0]
+    a1,a2,a3,a4 = quiz[current_question_index][1:-1]
     app.nquestions = len(quiz)
-    return render_template('socials.html', q=question_shuffled, o=question, num=currentN, ntot=app.nquestions)
+    return render_template('socials.html', num=currentN, ntot=app.nquestions, question=currentQ, ans1=a1,ans2=a2,ans3=a3,ans4=a4)
+
+
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
-

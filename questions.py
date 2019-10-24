@@ -26,9 +26,16 @@ questions["wrong"]=[]
 questions["curretq"]=1
 current_question_index = 1
 
-def phishings():
+def phishings(filename):
     quiz=None
-    with open('TemplateQuiz.csv', newline='') as csvfile:
-        reader = csv.reader(csvfile)
-        quiz = list(reader)
-        questionn = quiz[0]
+    try:
+        with open(filename, 'r') as csvfile:
+            reader = csv.reader(csvfile)
+            quiz = list(reader)
+            random.shuffle(quiz)
+    except:
+        print("unable to process request")
+    return quiz
+
+if __name__ == '__main__':
+    print(phishings('TemplateQuiz .csv'))
