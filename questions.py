@@ -1,11 +1,11 @@
-import random, copy
-from random import shuffle
 import csv
+import random
+
 """
 Questions and corresponding options
 The first option is the correct answer
 When a user is presented with the questions the options will be shuffled
-""" 
+"""
 
 social_eng = {
     "A situation in which an unauthorized person can view another user's display or keyboard to learn their password or other confidential information is referred to as:": [
@@ -70,7 +70,10 @@ social_eng = {
     ],
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> b6172bb3a4395fa391f5a6f43ddc6757f2be6ae0
 questions = {}
 questions["correct"] = []
 questions["wrong"] = []
@@ -89,5 +92,11 @@ def phishings(filename):
         print("unable to process request")
     return quiz
 
+<<<<<<< HEAD
 if __name__ == '__main__':
     print(phishings("TemplateQuiz .csv"))
+=======
+
+if __name__ == "__main__":
+    print(phishings("TemplateQuiz.csv"))
+>>>>>>> b6172bb3a4395fa391f5a6f43ddc6757f2be6ae0
