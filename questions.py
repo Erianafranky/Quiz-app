@@ -70,10 +70,6 @@ social_eng = {
     ],
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> b6172bb3a4395fa391f5a6f43ddc6757f2be6ae0
 questions = {}
 questions["correct"] = []
 questions["wrong"] = []
@@ -92,11 +88,7 @@ def phishings(filename):
         print("unable to process request")
     return quiz
 
-<<<<<<< HEAD
+
 if __name__ == '__main__':
     print(phishings("TemplateQuiz .csv"))
-=======
 
-if __name__ == "__main__":
-    print(phishings("TemplateQuiz.csv"))
->>>>>>> b6172bb3a4395fa391f5a6f43ddc6757f2be6ae0
