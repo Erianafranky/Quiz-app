@@ -1,56 +1,136 @@
 import csv
-from flask import Flask, render_template, redirect, url_for, flash, make_response, session,  request, jsonify, json,jsonify
-import random, copy
-from random import shuffle
-from random import sample
-import os, time, datetime
-import io
+import os
+import random
 import questions as qm
-from questions import*
+from flask import Flask, flash, redirect, url_for, render_template, request, session
+from questions import *
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 
 
-@app.route('/phishing', methods=['GET', 'POST'])
-    
+@app.route("/phishing", methods=["GET", "POST"])
 def phishing():
-    with open('TemplateQuiz.csv', 'r') as csvfile:
+    with open("TemplateQuiz.csv", "r") as csvfile:
         reader = csv.reader(csvfile)
-        quiz = list(reader)
-        random.shuffle(quiz)
-    if request.method == 'POST':
-        questions_file = 'TemplateQuiz .csv'
+        for row in reader:
+            quiz = list(reader)
+            random.shuffle(quiz)
+    if request.method == "POST":
+        questions_file = "TemplateQuiz.csv"
         question = quiz[current_question_index][0]
         options = quiz[current_question_index][1:-1]
         correct_answer = quiz[current_question_index][-1]
-        entered_answer =request.form.get('answer_phishing')
+        entered_answer = request.form.get("answer_phishing")
         if not entered_answer:
             flash("Please choose an answer", "error")
         else:
-            curr_answer = request.form['answer_phishing']
+            curr_answer = request.form["answer_phishing"]
             correct_answer = quiz[current_question_index][-1]
-        if curr_answer == correct_answer[:len(curr_answer)]:
-            quiz["correct"].append(int([current_question_index]))
+            if curr_answer == correct_answer[: len(curr_answer)]:
+                questions["correct"].append(int(current_question_index))
+            else:
+                questions["wrong"].append(int(current_question_index))
+
+        (session[current_question_index]) = str(current_question_index + 1)
+        questions["curretq"] = max(int(session[current_question_index]), questions["curretq"])
+        #if int(session[current_question_index]) in quiz:
+        if session[current_question_index] in range(1, len(quiz)):
+
+            redirect(url_for('phishing'))
         else:
-            quiz["wrong"].append(int([current_question_index]))
-        
-        session[current_question_index] = str(int(session[current_question_index])+1)
-        quiz["curretq"] = max(int(session[current_question_index]), quiz["curretq"])
-        
+            questions["wrong"] = list(set(questions["wrong"]))
+            questions["correct"] = list(set(questions["correct"]))
+            return render_template('end-quiz.html', question=questions)
+
+
+    #import pdb; pdb.set_trace()
     if current_question_index not in session:
         session[current_question_index] = "1"
 
-    elif session[current_question_index] not in qm:
-        quiz["wrong"] = list(set(quiz["wrong"]))
-        quiz["correct"] = list(set(quiz["correct"]))
-        return render_template('end-quiz.html', question=quiz)
+    #elif int(session[current_question_index]) not in quiz:
+    elif session[current_question_index] not in range(1, len(quiz)):
+        questions["wrong"] = list(set(questions["wrong"]))
+        questions["correct"] = list(set(questions["correct"]))
+        return render_template("end-quiz.html", question=questions)
+
+
     currentN = int(session[current_question_index])
     currentQ = quiz[current_question_index][0]
-    a1,a2,a3,a4 = quiz[current_question_index][1:-1]
+    a1, a2, a3, a4 = quiz[current_question_index][1:-3]  # [1:-3] because you have 4 choices for now
     app.nquestions = len(quiz)
-    return render_template('socials.html', num=currentN, ntot=app.nquestions, question=currentQ, ans1=a1,ans2=a2,ans3=a3,ans4=a4)
+    return render_template(
+        "socials.html",
+        num=currentN,
+        ntot=app.nquestions,
+        question=currentQ,
+        ans1=a1,
+        ans2=a2,
+        ans3=a3,
+        ans4=a4,
+    )
+
+@app.route("/social", methods=["GET", "POST"])
+    
+def social():
+    with open("TemplateQuiz.csv", "r") as csvfile:
+        reader = csv.reader(csvfile)
+        for row in reader:
+            quiz = list(reader)
+            random.shuffle(quiz)
+    if request.method == "POST":
+        questions_file = "TemplateQuiz.csv"
+        question = quiz[current_question_index][0]
+        options = quiz[current_question_index][1:-1]
+        correct_answer = quiz[current_question_index][-1]
+        entered_answer = request.form.get("answer_phishing")
+        if not entered_answer:
+            flash("Please choose an answer", "error")
+        else:
+            curr_answer = request.form["answer_phishing"]
+            correct_answer = quiz[current_question_index][-1]
+        if curr_answer == correct_answer[: len(curr_answer)]:
+            questions["wrong"].append(int(session["current_question"]))
+        else:
+            questions["wrong"].append(int(session["current_question"]))
+        
+        #current_question_index = str(current_question_index + 1)
+        session["current_question"] = str(int(session["current_question"]) + 1)
+        questions["curretq"] = max(int(session["current_question"]), questions["curretq"])
+        if int(session["current_question"]) in range(1, len(quiz)):
+
+            redirect(url_for('social'))
+        else:
+            questions["wrong"] = list(set(questions["wrong"]))
+            questions["correct"] = list(set(questions["correct"]))
+            return render_template('end-quiz.html', question=questions)
+
+    #import pdb; pdb.set_trace()
+    if "current_question" not in session:
+        session["current_question"] = "1"
+
+    elif int(session["current_question"]) not in range(1, len(quiz)):
+    
+        questions["wrong"] = list(set(questions["wrong"]))
+        questions["correct"] = list(set(questions["correct"]))
+        return render_template("end-quiz.html", question=questions)
+
+
+    currentN = int(session["current_question"])
+    currentQ = quiz[current_question_index][0]
+    a1, a2, a3, a4 = quiz[current_question_index][1:-3]
+    app.nquestions = len(quiz)
+    return render_template(
+        "socials.html",
+        num=currentN,
+        ntot=app.nquestions,
+        question=currentQ,
+        ans1=a1,
+        ans2=a2,
+        ans3=a3,
+        ans4=a4,
+    )
 
 
 
