@@ -73,8 +73,7 @@ social_eng = {
 questions = {}
 questions["correct"] = []
 questions["wrong"] = []
-questions["curretq"] = 1
-current_question_index = 1
+questions["currentq"] = 1
 
 
 def phishings(filename):

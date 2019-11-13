@@ -1,48 +1,42 @@
 {%extends 'base.html' %}
 {% block content %}
 {% if error %}<p class="error"><strong> {{ error }}{% endif %}
-    <div class="container">  
-  <div id="home" class="flex-center flex-column">
+    <div class="container">
+      <div id="home" class="flex-center flex-column">
         <h1>Question {{num}} of {{ntot}}</h1>
-                
-            
-                  
-                  <h3>{{question}}</h3>
-                  
-                  
-                  <h4>
-                    
-                    <form id='answer' method='post'  > <!-- action must match your next URL -->
-                    <div class="choice-container">
-                     
-                      <div class="choice-text">
-                      
-                        
-                     <input type='radio' name='answer_phishing' id="r1" value={{ans1}} /> <label for="r1" >{{ans1}}</label> </br>
 
-                     <input type='radio' name='answer_phishing' id="r2" value={{ans2}} />  <label for="r2" >{{ans2}}</label> </br>
+        <h3>{{question}}</h3>
 
-                     <input type='radio' name='answer_phishing' id="r3" value={{ans3}} />  <label for="r3" >{{ans3}}</label> </br>
+        <h4>
 
-                     <input type='radio' name='answer_phishing' id="r4" value={{ans4}} />  <label for="r4" >{{ans4}}</label> </br>   
-                      
-                      </div>
-                       
-                      </div>                             
-                  
-                      
-                     <input type='submit' value='Next' id="r7" formaction="/phishing" /> <!--the 'value' is the word that will appear on your button.-->
-                  
-                  </form>
-                  </h4>
-                  
-                  </div>
-                  </div>
-                     
-                
-       
+          <form id='answer' method='post'>
+            <!-- action must match your next URL -->
+            <div class="choice-container">
+
+              <div class="choice-text">
+                <input type='radio' name='answer_phishing' id="r1" value=A /> <label for="r1">{{ans1}}</label>
+                </br>
+
+                <input type='radio' name='answer_phishing' id="r2" value=B /> <label for="r2">{{ans2}}</label>
+                </br>
+
+                <input type='radio' name='answer_phishing' id="r3" value=C /> <label for="r3">{{ans3}}</label>
+                </br>
+
+                <input type='radio' name='answer_phishing' id="r4" value=D /> <label for="r4">{{ans4}}</label>
+                </br>
+              </div>
+
+            </div>
+
+
+            <input type='submit' value='Next' id="r7" formaction="/phishing" />
+            <!--the 'value' is the word that will appear on your button.-->
+
+          </form>
+        </h4>
+
+      </div>
+    </div>
+
     {% endblock %}
-
-  
-    
-

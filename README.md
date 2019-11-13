@@ -8,9 +8,13 @@ Follow this steps to use this project:
 
 2. Install virtual environment $pip install virtualenv
 
-3. Create a virtual environment for the project $virtualenv my-venv then activate it $source my-venv/bin/activate
+3. Create a virtual environment for the project:<br>
+`$virtualenv my-venv` then activate it <br>
+`$source my-venv/bin/activate`
 
-4. Install requirements pip install -r requirements.txt
+4. Install requirements:<br>
+`pip install -r requirements.txt`
 
-5. To start the server, run the command python run.py 
+5. To start the server, run the command:<br>
+`python run.py` then navigate to `http://127.0.0.1:5000/phishing`.
 
