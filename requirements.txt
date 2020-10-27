@@ -8,7 +8,7 @@ certifi==2019.6.16
 cffi==1.12.3
 Click==7.0
 colorama==0.4.1
-cryptography==2.7
+cryptography==3.2
 filelock==3.0.12
 Flask==1.1.1
 Flask-Admin==1.5.3
